@@ -9,43 +9,10 @@ using System.Threading.Tasks;
 namespace Demo.DAL.Repositories
 {
     // Primary Constructor .Net 8 C#12
-    public class DepartmentRepository(ApplicationDbContext dbContext) : IDepartmentRepository
+    public class DepartmentRepository(ApplicationDbContext dbContext) : GenericRepository<Department>(dbContext),IDepartmentRepository
     {
 
 
-        private readonly ApplicationDbContext _dbContext = dbContext; //optional if i used primary constructor
-
-        //CRUD Opertaions
-        //Get All
-        public IEnumerable<Department> GetAll(bool WithTracking = false)
-        {
-            if (WithTracking)
-                return _dbContext.Departments.ToList();
-            else
-                return _dbContext.Departments.AsNoTracking().ToList();
-        }
-        //Get By Id
-        public Department? GetById(int id) => _dbContext.Departments.Find(id);
-
-        //Update
-        public int Update(Department department)
-        {
-            _dbContext.Departments.Update(department); //Update Locally
-            return _dbContext.SaveChanges();
-        }
-
-        //Delete
-        public int Remove(Department department)
-        {
-            _dbContext.Departments.Remove(department);
-            return _dbContext.SaveChanges();
-        }
-
-        //Insert
-        public int Add(Department department)
-        {
-            _dbContext.Departments.Add(department);
-            return _dbContext.SaveChanges();
-        }
+      
     }
 }

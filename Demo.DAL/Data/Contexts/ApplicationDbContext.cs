@@ -1,6 +1,7 @@
 ﻿
 
 using Demo.DAL.Models.DepartmentModel;
+using Demo.DAL.Models.EmployeeModel;
 using System.Reflection;
 
 namespace Demo.DAL.Data.Contexts
@@ -17,6 +18,7 @@ namespace Demo.DAL.Data.Contexts
             //modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
 
-        public DbSet<Department> Departments { get; set; } 
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }
