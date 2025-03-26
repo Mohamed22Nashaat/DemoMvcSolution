@@ -1,5 +1,6 @@
 ﻿
 
+using Demo.DAL.Models.DepartmentModel;
 using System.Reflection;
 
 namespace Demo.DAL.Data.Contexts

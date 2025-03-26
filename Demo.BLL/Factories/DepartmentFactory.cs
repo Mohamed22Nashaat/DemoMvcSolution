@@ -1,5 +1,5 @@
 ﻿using Demo.BLL.DataTransferObjects;
-using Demo.DAL.Models;
+using Demo.DAL.Models.DepartmentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
