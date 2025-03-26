@@ -97,9 +97,9 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id,DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute] int id, DepartmentEditViewModel viewModel)
         {
-            
+
             if (ModelState.IsValid)
             {
                 try
@@ -143,7 +143,50 @@ namespace Demo.Presentation.Controllers
             }
             return View(viewModel);
 
-            #endregion
+            
         }
+        #endregion
+        #region Delete Department
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (!id.HasValue) return BadRequest();
+        //    var department = _departmentServices.GetDepartmentById(id.Value);
+        //    if (department is null) return NotFound();
+        //    return View(department);
+        //}
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool Deleted = _departmentServices.DeleteDepartment(id);
+                if (Deleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Department Is Not Deleted");
+                    return RedirectToAction(nameof(Delete), new { id });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_environment.IsDevelopment())
+                {
+                    //1. Developmet => Log error in consloe and return same view wuth error message
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    //2. Deployment => Log error in file | table and return error view
+                    _logger.LogError(ex, ex.Message);
+                    return View("ErrorView", ex);
+
+                }
+            }
+        }
+        #endregion
     }
 }
